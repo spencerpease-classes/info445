@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1517972016969.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2890997170",
+    "id" : "78653BAA",
+    "lastKnownWriteTime" : 1519345714,
+    "last_content_update" : 1519345714857,
+    "path" : "~/School/College/Info 445/Project/product_scraper/analysis.R",
+    "project_path" : "analysis.R",
+    "properties" : {
+        "cursorPosition" : "4,14",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

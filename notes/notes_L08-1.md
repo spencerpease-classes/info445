@@ -1,0 +1,101 @@
+# INFO 445 Lecture 8-1
+## 2018-02-20
+======================
+
+- db mirroring log shipping and replication 
+    - mirroring
+        - high availability solution
+            - synchronous data transfer between two nodes
+            - done via two-phase commit
+            - done when service availability more important than accuracy
+                - ex: more important for store to be open
+        - no correlation between uptime and data loss
+    - replication
+        - high scalability solution
+        - data filtered based on relevancy
+            - function or region
+            - vertical and horizontal partitioning
+        - operations run faster
+            - less data to iterate over
+    - log shipping
+        - read only
+        - used for internal reporting
+        - full copy of db
+
+- resume
+    - did live troubleshooting of a db containing 1,000,000 rows and restore to point in time
+    - replication and log shipping
+
+- RAID
+    - Redundant array of independent disks
+    - configuration not part of SQL server, part of hardware configuration
+    - enables fault tolerance
+    - types
+        - RAID 0
+            - disk striping
+                - block of data is broken into chunks and written in parallel to multiple disks
+                - great performance
+                    - read and write in parallel
+                - bad fault tolerance
+                    - lose one disk and all data is unusable
+                - great disk cost-efficiency
+        - RAID 1
+            - disk mirroring
+                - same data signal is written to both disk channels
+                    - no communication between disk channels
+                - good performance
+                    - able to read in parallel
+                - better fault tolerance
+                - fair disk cost-efficency (N/2)
+        - RAID 5
+            - disk striping + parity
+                - parity
+                    - part of disk that contains info on what happened elsewhere
+                    - if lose a drive, can combine parity to get data back
+                    - only able to lose one drive
+                - fair performance
+                    - bad because you have to write twice
+                - fair fault tolerance
+                - good disk cost-efficiency (N-1)
+                - only used for when disk was expensive
+        - RAID 1+0
+            - mirroring + striping
+                - great performance
+                - great fault-tolerance
+                - fair disk cost-efficiency
+
+- Database Maintenance
+    - must know env to do maintenance
+        - transactions
+            - inserts updates deletes
+            - how / how often data comes into system
+            - what objects are affected
+        - data flow
+            - how data moves once in a db
+            - life cycle of data (how is data changed)
+        - customers (internal and external)
+            - must know data needs and priorities
+        - hardware
+            - RAID, disk capacity, cpus
+            - know where single points of failure are
+            - how powerful / capabilities of each system
+            - useful life cycle
+        - db objects
+            - stored procedures, logins, jobs, tables
+            - which objects are most important to customers
+            - which objects have highest activity
+        - skills of dba staff
+            - understand what people do well to work better as a team
+            - SWOT analysis
+            - opportunities to strengthen team
+                - person with most experience might not be right person for task
+    - system vulnerabilities
+        - want to do proactive maintenance
+            - daily tasks
+                - backups of data, checking error logs
+                - writing hand-off reports
+    - goals
+        - build routine set of tasks that improve value of bd environment
+        - maintenance must be defined
+        - optimized over time
+        - measurable

@@ -1,0 +1,112 @@
+# INFO 445 Lecture 5-1
+## 2018-01-25
+======================
+
+- Synthetic transaction
+    - populates transactional tables
+    - test db design at volume
+    - wrapper (or harness) code that calls transactional stored procedure
+    - make use of while loop
+    - test for conflicts in stored procedures
+
+- Disaster recovery
+    - not able to provide services enabling customers to complete desired process
+    - anything that prevents access to service, access to data
+    - majority come from people making mistakes
+    - Service Level Agreement (SLA) defines contract determining acceptable downtimes and outages
+    - prevention
+        - maintenance to minimize failure points
+        - take backups
+        - practice recovery
+
+- Database backups
+    - full, differential, and logs
+        - saves space
+        - faster
+
+- Data Warehouse
+    - bulk storage of data
+    - contains historical data from transactional db
+        - read only, never going to change
+    - used to analyze trends and draw insights to make better decisions
+    - invented by Ralph Kimball and Bill Inmon
+    - Characteristics
+        - **subject-oriented**
+            - looking for information about a specific subject / business focus
+            - subjects around areas of enterprises critical to mission of org
+        - **integrated**
+            - contains data from multiple transactional db
+            - ex who is better driver (university db, courts, DOT, hospital, insurance)
+            - often takes in inconsistent data that must be matched
+                - #1 reason for failure (9% succeed)
+        - **time-variant**
+            - look at patterns over time
+            - data is only valid for a certain time interval
+        - **non-volatile**
+            - data never changes; is fact; dead
+            - new data added as supplement
+    - benefits
+        - potential high ROI
+        - competitive advantage
+        - increased productivity of corporate decision-makers
+    - vs OLTP (transactional db)
+        - purpose: operational processing vs analytical processing
+        - data usage: current vs historic to present
+        - latency: real time vs decades
+        - granularity: detailed data vs detailed and lightly summarized
+    - queries
+        - ask highly complex questions (vs simple counts in OLTP)
+    - problems
+        - underestimation of resources for data loading
+        - required data not captured
+        - data ownership
+        - inhomogeneous data
+    - dimensional model
+        - star schema
+            - one large table (fact table) surround by dimensions
+                - who (customer, employee), what (product), where (store), why, how
+            - everything is one join away
+            - denormalized (redundant data)
+                - we have control of data, able to make sure everything looks good
+                - few, very large, inserts (vs many small inserts in OLTP)
+                - speeds up read, no lookups
+                    - take processing penalty on load
+            - dimensions have surrogate key, going into fact table
+                - pk of fact table is all fks in it (natural key)
+            - fact table has measures
+                - numeric columns part of evey fact (price, cost, profit, items on ticket)
+        - snowflake
+            - normalized dimensional model
+                - dimensions contain lookup tables
+        - warehouse has dimensional model for every question
+    - tools (ETL)
+        - **Extraction**
+            - do not take all data from OLTP or other sources
+            - only data that helps answer question
+            - determine what you need
+        - **Transformation**
+            - apply series of rules or functions to extracted data
+                - data encoding, combining data, summation
+            - determines how data will be used for analysis
+                - ex turning transcripts to honor roll
+            - most likely area of failure
+        - **Load**
+            - additional constraints applied as data is brought in
+    - Data mart (Kimball) vs warehouse (Inmon)
+        - same design
+        - different scope
+            - data mart subset of data warehouse
+            - bottom up approach
+                - start w/ dm, make dw
+                - answer 85% department level, 70% enterprise level questions
+            - top down approach
+                - start w/ dw, carve out dw
+                - aks enterprise-level questions
+                - anwer 85% enterprise level, 70% department level questions
+        - how to choose
+            - dw takes 4+ years
+                - better insights
+            - dm takes 6 months
+                - cheaper
+                - scope of insights is smaller
+                - much more popular

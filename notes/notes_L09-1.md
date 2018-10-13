@@ -1,0 +1,63 @@
+# INFO 445 Lecture 9-1
+## 2018-02-27
+======================
+
+- Motivations behind development of NoSQL
+    - cost
+        - open source software
+        - runs on the cloud
+            - scales with you
+            - pay for what you use
+    - flexibility
+        - unstructured data collection
+        - received before understood
+            - vs prescribing exact shape of data (relational)
+    - availability
+        - distributed topology allows for easily adding nodes
+
+- Monitoring Databases
+    - tool-set
+        - SQl Server Profiler
+            - minutia
+            - view code and commands as executed
+            - allows viewing and capturing all transactional activity
+            - trace
+                - subsystem like a net to find issues
+                    - can run trace on filtered set of data
+                        - user, server, stored prcedure
+                - have a plan
+                -start with templates
+                - execution
+                    - avoid client-side
+                        - data must be transfered
+                        - lot of overhead
+                    - server side
+                        - store locally on server, view later
+                        - doesn't stress network
+                - saving trace
+                    - file
+                    - table
+        - System monitor (perfMon)
+            - OS monitor
+        - Activity monitor
+            - who is connected, what is going on
+        - Task manager
+            - OS level overview
+        - Dynamic Management Views (DMVs)
+            - Understand current state of db
+            - presented as system views
+            - categories
+                - `dm_db_*` 
+                    - statistics
+    - measurements
+        - must know db env
+            - transactions, data flow, customers, hardware, db objects, skills of staff
+        - know baseline for when things go wrong
+    - why
+        - be proactive
+            - adress concerns before it becomes problem
+    - what senarios shoulb be monitores
+        - look when there is performance issue to fix
+        - look when no issue to get benchmark
+    - how to monitor
+        - use tools
